@@ -53,7 +53,9 @@ fn blr_get_term(polynomial_power: u128, polynomial_term: u128) -> String{
     return out;
 }
 fn blr_get_power(polynomial_power: u128) -> String{
-    let mut out = "".to_owned();
+    let mut out = "(a+b)^".to_owned();
+    out.push_str(polynomial_power.to_string().trim());
+    out.push_str("=".trim());
     for i in 0..polynomial_power {
         out.push_str(blr_get_term(polynomial_power, i).trim());
         if i == (polynomial_power - 1) {

@@ -56,8 +56,11 @@ fn blr_get_power(polynomial_power: u128) -> String{
     let mut out = "".to_owned();
     for i in 0..polynomial_power {
         out.push_str(blr_get_term(polynomial_power, i).trim());
-        if i == polynomial_power {
-        out.push_str("+".trim());
+        if i == (polynomial_power - 1) {
+            out.push_str(" ".trim());
+        }
+        else{
+            out.push_str("+".trim());
         }
     }
     return out;

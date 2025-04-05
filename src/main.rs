@@ -69,17 +69,26 @@ fn blr_get_power(polynomial_power: u128) -> String{
 }
 // section main
 /***************************************************************************************************************************************************/
-fn main() {
+#[cfg(feature = "tests")]
+fn test_row() {
     println!("Hello, world!");
-    blr_get_term(3, 2);
-    blr_get_term(6, 0);
-    blr_get_term(6, 1);
-    blr_get_term(6, 2);
-    blr_get_term(6, 3);
-    blr_get_term(6, 4);
-    blr_get_term(6, 5);
-    blr_get_term(6, 6);
     println!("");
-    let test = blr_get_power(5);
-    println!("{test}");
+    let row = blr_get_power(5);
+    println!("{row}");
+}
+#[cfg(feature = "tests")]
+fn test_terms(){
+    println!("Hewwo, Wowld!");
+    println!("");
+    let terms: [String;8] = [blr_get_term(3, 2),blr_get_term(6, 0),blr_get_term(6, 1),blr_get_term(6, 2),blr_get_term(6, 3),blr_get_term(6, 4),blr_get_term(6, 5),blr_get_term(6, 6)];
+    for i in 0..8{
+        println!("{}", terms[i]);
+    }
+    //println!("{:#?}", terms);
+}
+fn main(){
+    #[cfg(feature = "tests")]{
+        test_row();
+        test_terms();
+    }
 }

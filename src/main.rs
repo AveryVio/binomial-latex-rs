@@ -1,17 +1,14 @@
+use std::fs::read;
+
+use factorial::Factorial;
+
 // can be used as a library too
 /***************************************************************************************************************************************************/
-
+extern crate text_io;
+extern crate factorial;
 // section helper functions
 /***************************************************************************************************************************************************/
-fn factorial_worker(mut held_number: u128, n: u128) -> u128 {
-    if n > 0 {
-        held_number = n * factorial_worker(held_number, n - 1);
-    }
-    return held_number;
-}
-fn factorial(held_number: u128,) -> u128 {
-    return factorial_worker(1, held_number);
-}
+
 // section usable functions
 /***************************************************************************************************************************************************/
 fn blr_get_term(polynomial_power: u128, polynomial_term: u128) -> String{
@@ -19,8 +16,7 @@ fn blr_get_term(polynomial_power: u128, polynomial_term: u128) -> String{
         panic!("power has to be bigger or equal than the term")
     }
 
-    let multiplier = factorial(polynomial_power) / (factorial(polynomial_power - polynomial_term) * factorial(polynomial_term));
-     
+    let multiplier = polynomial_power.factorial() / ((polynomial_power - polynomial_term).factorial() * polynomial_term.factorial());
     
     let mut a = "".to_owned();
     if (polynomial_power - polynomial_term) > 1 {
@@ -90,5 +86,43 @@ fn main(){
     #[cfg(feature = "tests")]{
         test_row();
         test_terms();
+    }
+    let full_version:u16=1;
+    let dev_version:u16=7;
+    println!("version!({})",full_version.factorial()+dev_version.factorial());    
+
+    loop{
+        println!("Enter if you want a term (T) or a full power(P)");
+        let term_or_line: String = text_io::read!();
+        match term_or_line.as_str() {
+            "T" | "t" => {
+                println!("Choose the triangle power (maximum 34)");
+                let power:u128 = text_io::read!();
+                println!("Choose the term");
+                let term:u128 = text_io::read!();
+                println!("The term is:");
+                let answer:String = blr_get_term(power, term);
+                println!("{}", answer);
+                println!("You can copy it to a LaTeX interpreter (MS Word works too)");
+                println!("press enter to exit");
+                let buff:u8 = text_io::read!();
+                break;
+            },
+            "P" | "p" => {
+                println!("Choose the triangle power (maximum 34)");
+                let power:u128 = text_io::read!();
+                println!("The term is:");
+                let answer:String = blr_get_power(power);
+                println!("{}", answer);
+                println!("You can copy it to a LaTeX interpreter (MS Word works too)");
+                println!("press enter to exit");
+                let buff:u8 = text_io::read!();
+                break;
+            },
+            _ => {
+                println!("Not a valid input option.");
+                continue;
+            }
+        }
     }
 }
